@@ -1,0 +1,15 @@
+{
+  "name": "angular-presentation-server",
+  "description": "Angular Presentation Server",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dretay/angularpresentation",
+  "author": "Drew Tayman <dretay@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dretay/angularpresentation"
+  },
+  "dependencies": {
+    "express": "*",
+    "cors": "*"
+  }
+}
