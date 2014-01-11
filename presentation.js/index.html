@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AngularJS - Superheroic JavaScript MVW Framework</title>
+
+		<meta name="description" content="A framework to dynamically extend HTML vocabulary for your application.">
+		<meta name="author" content="Drew Tayman">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>AngularJS</h1>
+					<h3>Superheroic JavaScript MVW Framework</h3>
+					<p>
+						<small>Created by <a href="#">Drew Tayman</a> / <a href="#">dretay@gmail.com</a></small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						To properly explain AngularJS its necessary to understand the environment in which it was developed.
+						<aside class="notes">
+						</aside>
+					</section>
+					<section>
+						<h2>In the beginning there was HTML...</h2>
+						<img src="/img/bigbang.jpg">
+					</section>
+					<section>
+						HTML was originally intended to enable physicists to share and use documents; it contained 18 tags that could be used to indicate things like paragraphs, tables, and lists within a page.
+						<div style="margin-top:30px">
+						<div style="float:left;width:50%">
+							<pre><code data-trim style="font-size: 18px">
+&ltp&gt
+	My favorite elements
+	&ltol&gt
+		&ltli&gtHelium&lt/li&gt
+		&ltli&gtOxygen&lt/li&gt
+		&ltli&gtNitrogen&lt/li&gt
+	&lt/ol&gt
+&lt/p&gt
+							</code></pre>
+						</div>
+						<div style="float:right;width:50%;margin-top:15px">
+							<blockquote>
+								My favorite elements
+								<ol>
+									<li>Helium</li>
+									<li>Oxygen</li>
+									<li>Nitrogen</li>
+								</ol>
+							</blockquote>
+						</div>
+					</div>
+					</section>
+					<section>
+						As the web grew in popularity developers hit a snag: users wanted more interactive applications but HTML could only deliver static content.
+					</section>
+					<section>
+						<h3>One idea was to use browser plugins like Applets and Flash to bridge the gap</h3>
+						<img height="550px" src="img/javapowerplant.gif">
+					</section>
+					<section>
+						<h2>There were a lot of problems with this solution</h2>
+						<ul>
+							<li class="fragment">Required that users install and maintain runtimes independent of their browser</li>
+							<li class="fragment">Pages took much longer to load</li>
+							<li class="fragment">Look and feel often differed from the rest of the page</li>
+							<li class="fragment">Resulted in pages had an "island of interactivity" surrounded by static content</li>
+						</ul>
+					</section>
+					<section>
+						Another idea was to use server-side frameworks like Coldfusion, JSP, or ASP to dynamically generate pages as they were requested.
+					</section>
+					<section>
+						These frameworks tended to be slow and very complicated.
+						<img class="fragment" src="img/xmlconfig.jpg">
+					</section>
+					<section>
+						They could also result in inappropriate touching between the view and controller or spaghetti code - ultimately leading to maintainability issues.
+						<pre><code data-trim style="font-size: 18px">
+&lthtml&gt
+<body>
+  <%
+    double num = Math.random();
+    if (num > 0.95) {
+  %>
+      <h2>Welcome to the Healthcare.gov!</h2>
+  <%
+    } else {
+  %>
+      <h2>Sorry the site is busy, please try again later.</h2>
+  <%
+    }
+  %>
+  <a href="<%= request.getRequestURI() %>"><h3>Try Again</h3></a>
+</body>
+&lthtml&gt
+						</code></pre>
+					</section>
+					<section>
+						Then AJAX is invented (by IE!) and suddenly web development takes off.
+						<p>
+							<img class="fragment" height="500px" src="/img/dora-the-internet-explorer.jpeg">
+						</p>
+					</section>
+					<section>
+						Suddenly developers have the ability to deliver quick local updates to the page (like input validation) and reach back to a server for data (like table content).
+					</section>
+					<section>
+						There is an explosion of Javascript frameworks.
+						<p><p><p>
+						<iframe height="400px" width="800px" src="http://cdpn.io/bxruh"></iframe>
+					</section>
+					<section>
+						<div>They share a similar goal of abstracting / normalizing how you interact with the browser. This allows you to write generic code that will execute across all major browsers.</div>
+					</section>
+					<section>
+						Some frameworks went further and created "widget" frameworks that allow developers to be even more insulated from web development. ExtJS for example lets users build things that look eerily similar to Java Swing.
+					</section>
+					<section style="top: -335px">
+						<pre><code data-trim style="font-size: 18px;max-height: 600px">
+Ext.create('widget.window', {
+                title: 'Layout Window',
+                closable: true,
+                width: 600,
+                height: 350,
+                layout: 'border',
+                items: [{
+                    region: 'west',
+                    title: 'Navigation',
+                    width: 200,
+                    split: true,
+                    collapsible: true,
+                    floatable: false
+                }, {
+                    region: 'center',
+                    xtype: 'tabpanel',
+                    items: [{
+                        title: 'Closable Tab',
+                        html: 'Hello world',
+                        closable: true
+                    }]
+                }]
+            });
+        }
+						</code></pre>
+					</section>
+					<section>
+						<img src="/img/cool-story-bro.jpg">
+					</section>
+				</section>
+				<section>
+					<section>
+						So if Javascript has all the tools needed to build rich internet applications, why are so many frameworks being invented?
+					</section>
+					<section>
+						Are developers bored?
+					</section>
+					<section>
+						Are they looking for job security?
+					</section>
+					<section>
+						I think its because the display language available (HTML) lacks the ability to sufficiently express an application. We're no longer just creating lists of stuff.
+						<pre><code data-trim style="font-size: 18px">
+&ltp&gt
+	My favorite elements
+	&ltol&gt
+		&ltli&gtHelium&lt/li&gt
+		&ltli&gtOxygen&lt/li&gt
+		&ltli&gtNitrogen&lt/li&gt
+	&lt/ol&gt
+&lt/p&gt
+							</code></pre>
+					</section>
+					<section>
+						We're creating dynamic user interfaces
+						<img src="/img/extjs.png"></img>
+					</section>
+
+				</section>
+				<section>
+					<section>
+						<img src="/img/angularjs.jpeg"></img>
+					</section>
+					<section>
+						AngularJS does a lot of things, however at its most basic it is a way of extending HTML's vocabulary so it can describe modern web applications.
+					</section>
+					<section>
+						For example, let's say you'd like to create a page of biographies for your company employees
+					</section>
+					<section>
+								<pre><code data-trim style="font-size: 18px">
+
+var printer = function(name,description){
+  return &quot;&lt;div&gt;&quot;+
+            &quot;&lt;div&gt;&quot;+employee.name+&quot;&lt;/div&gt;&quot;+
+            &quot;&lt;div&gt;&quot;+employee.description+&quot;&lt;/div&gt;&quot;+
+          &quot;&lt;/div&gt;&quot;;
+};
+$.ajax({
+  url: &quot;/myCompany/employees&quot;
+}).done(function(employees) {
+  for(var i=0;i&lt;employees.length;i++){
+    var employee = employees[i];
+     $('body').append(
+	     printEmployee(employee.name,employee.description)
+     );
+  }
+});
+							</code></pre>
+							<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: 81px;
+width: 317px;
+top: 268px;
+height: 27px;"></div>
+							<div class="fragment" style="position: absolute;
+top: 346px;
+right: -152px;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;">
+								We go from talking about an object called employee
+							<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: -476px;
+width: 450px;
+top: -284px;
+height: 93px;"></div>
+							<div class="fragment" style="position: absolute;
+top: -355px;
+right: 0;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;">
+								To page divisions - tightly coupling the model to the view
+							</div>
+							</code></pre>
+					</section>
+					<section>
+							 This code creates an maintenance issue: since we're working with javascript strings rather than HTML its very easy to make a typo and break the view.
+					</section>
+					<section>
+						From a GOF standpoint we're violating separation of concerns: the code that retrieves employees shouldn't care how employees are rendered on the screen.
+					</section>
+					<section>
+						As a consequence of the disconnect between the model and the view developers have to constantly juggle multiple representations of their data:
+						<ul style="padding-top:30px">
+							<li class="fragment">Javascript objects</li>
+							<li class="fragment">Rendered HTML fragments</li>
+							<li class="fragment">"Modified" data from user input</li>
+							<li class="fragment">Etc...</li>
+						</ul>
+					</section>
+					<section>
+						Wouldn't it make life easy if there was an "employee" HTML tag?
+					</section>
+					<section>
+						Even better, what if there was a "for loop" that we could just feed a list of employees to...
+					</section>
+					<section>
+						<pre style="width:1000px"><code data-trim style="font-size: 30px;min-height:80px;line-height:40px">
+$scope.employees = $resource('/myCompany/employees');
+
+...
+
+&lt;div ng:repeat=&quot;employee in employees&quot;&gt;
+	&lt;employee information=&quot;employee&quot;&gt;&lt;/employee&gt;
+&lt;/div&gt;
+						</code></pre>
+					</section>
+					<section>
+						<p data-height="500" data-theme-id="0" data-slug-hash="pxtce" data-user="dretay" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/dretay/pen/pxtce'>pxtce</a> by Drew Tayman (<a href='http://codepen.io/dretay'>@dretay</a>) on <a href='http://codepen.io'>CodePen</a></p>
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+					</section>
+					<section>
+						These are known as <h1>Directives</h1> and they are Angular's way of dynamically redefining and extending HTML. They form one of the 3 core ideas Angular is built upon.
+					</section>
+				</section>
+				<section>
+					<h2>The three D's in AngularJS</h2>
+					<ul>
+						<li style="margin: 1em" class="fragment"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>irectives</span>
+							<ul><li>markers on a DOM element that tell AngularJS to attach a specified behavior to that DOM element</li></ul>
+						</li>
+						<li style="margin: 1em" class="fragment"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>ependency Injection</span>
+							<ul><li>mechanism AngularJS uses to associate dependencies with the code that needs them</li></ul>
+						</li>
+						<li style="margin: 1em" class="fragment"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>ata Binding</span>
+							<ul><li>automatic two-way synchronization of data between the model and view components</li></ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>The three D's in AngularJS</h2>
+						<ul>
+							<li style="margin: 1em"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>irectives</span>
+								<ul><li>markers on a DOM element that tell AngularJS to attach a specified behavior to that DOM element</li></ul>
+							</li>
+							<li style="margin: 1em;opacity: 0.15;"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>ependency Injection</span>
+								<ul><li>mechanism AngularJS uses to associate dependencies with the code that needs them</li></ul>
+							</li>
+							<li style="margin: 1em;opacity: 0.15;"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>ata Binding</span>
+								<ul><li>automatic two-way synchronization of data between the model and view components</li></ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						Directives are used everywhere in AngularJS. They can take the form of either an element, an attribute, css class, or comment.
+					</section>
+					<section>
+						<pre style="width:1000px"><code data-trim style="font-size: 30px;min-height:80px;line-height:40px">
+$scope.employees = $resource('/myCompany/employees');
+
+...
+
+&lt;div ng:repeat=&quot;employee in employees&quot;&gt;
+	&lt;employee information=&quot;employee&quot;&gt;&lt;/employee&gt;
+&lt;/div&gt;
+						</code></pre>
+						<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: 161px;
+width: 143px;
+top: 246px;
+height: 33px;"></div>
+							<div class="fragment" style="position: absolute;
+top: 291px;
+right: -152px;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;">
+								This an element directive; it defines a new element that may be used anywhere on the page
+								<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: -529px;
+width: 157px;
+top: -83px;
+height: 27px;"></div>
+							<div class="fragment" style="position: absolute;
+top: -194px;
+right: -75px;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;">
+								This an attribute directive; it adds some behavior to existing HTML code
+							</div>
+					</code></pre>
+					</section>
+					<section>
+						<h3 style="padding-bottom: 40px">CSS and Comment directives are rarely used:</h3>
+						CSS Directive
+						<pre style="width:1000px"><code data-trim style="font-size: 30px;min-height:80px;line-height:40px">
+&lt;div class="employee: information;"&gt;&lt;/div&gt;
+						</code></pre>
+						Comment Directive
+						<pre style="width:1000px"><code data-trim style="font-size: 30px;min-height:80px;line-height:40px">
+							&lt;!-- directive: employee information --&gt;
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>The three D's in AngularJS</h2>
+						<ul>
+							<li style="margin: 1em;opacity: 0.15;"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>irectives</span>
+								<ul><li>markers on a DOM element that tell AngularJS to attach a specified behavior to that DOM element</li></ul>
+							</li>
+							<li style="margin: 1em;"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>ependency Injection</span>
+								<ul><li>mechanism AngularJS uses to associate dependencies with the code that needs them</li></ul>
+							</li>
+							<li style="margin: 1em;opacity: 0.15;"><span style="text-transform: uppercase;font-weight:bold"><span style="text-decoration: underline;font-size: 60pt">D</span>ata Binding</span>
+								<ul><li>automatic two-way synchronization of data between the model and view components</li></ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						AngularJS's Dependency Injection does not have an opinion on how resources are loaded onto the page. It is only concerned with helping a consumer choose what resources to consume.
+					</section>
+					<section>
+						You will still need to use something like RequireJS or Browserify (or use script tags) to get your stuff on the page.
+					</section>
+					<section>
+						The real value of DI comes into play during testing of your application. Say your application is structured like this
+						<img src="/img/dependency_graph.png">
+												<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: 284px;
+width: 148px;
+top: 252px;
+height: 163px;"></div>
+							<div class="fragment" style="position: absolute;
+top: 160px;
+right: 500px;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;">
+								Employee directive from earlier </div>
+									<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: 523px;
+width: 148px;
+top: 116px;
+height: 163px;"></div>
+								<div class="fragment" style="position: absolute;
+top: 59px;
+right: -234px;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;
+height: 135px;">A service that performs any necessary data-munging before the information is displayed</div>
+<div class="fragment" style="border: 2px solid red;
+position: absolute;
+left: 753px;
+width: 157px;
+top: 515px;
+height: 157px;"></div>
+							<div class="fragment" style="position: absolute;
+top: 370px;
+right: -30px;
+background: #4D8E94;
+border-radius: 5px;
+padding: 5px;
+width: 485px;
+height: 100px;">A provider to make the remote connection and fetch the data</div>
+					</section>
+					<section>
+						If you want to test this application you need to be able to simulate connecting to an external data source.
+					</section>
+					<section>
+						A traditional approach to testing this application would use something like Sinon.JS to stub any functions that make external calls
+						<pre><code data-trim style="font-size: 28px">
+  describe 'The employee directive', ->
+  beforeEach ->
+    sinon.stub $, 'ajax',(options)->
+      deferred = $.Deferred()
+      response = #some test input...
+      deferred.resolve(JSON.parse(response))
+      deferred.promise()
+  afterEach ->
+      $.ajax.restore()
+							</code></pre>
+					</section>
+					<section>
+						<h2>This approach has some limitations</h2>
+						<ol>
+							<li class="fragment" >The override is global - if you're running many tests in parallel there's a chance of collision </li>
+							<li class="fragment" >You must properly clean up stubs once your test is done or risk leaking one test into another</li>
+							<li class="fragment" >Code must be modular enough to accept stubbed methods (either relying on global variables or allowing the appropriate arguments to be passed into the constructor)</li>
+							<li class="fragment" >All possible requests must be handled</li>
+							<li class="fragment" >More difficult to share common resource code across multiple tests</li>
+							<li class="fragment" >Becomes more difficult as the more transport mechanisms are introduced (a WebSocket that falls back to Long Polling, which can fall back to interval polling)</li>
+						</ol>
+					</section>
+					<section>
+						With dependency injection many of these problems can be alleviated...
+						<div class="fragment">we can simply provide a mock provider</div>
+					</section>
+					<section>
+						<h3>When the application is initialized the mock provider will be injected automatically</h3>
+						<pre><code data-trim style="font-size: 28px">
+  describe 'The employee directive', ->
+    beforeEach ->
+      module ($provide)->
+        $provide.provide 'provider', ->
+          this.$get = ['$http', ($http)->
+          	#do test stuff...
+          ]
+							</code></pre>
+					</section>
+					<section>
+						<h2>This approach has several advantages</h2>
+						<ol>
+							<li class="fragment">You are not responsible for how the application is initialized in the test suite</li>
+							<li class="fragment">The mocked module can depend on any other module in your application regardless of whether or not it is mocked
+								<ul><li>A mocked module that makes an external request can use a non-mocked module to process the data</li></ul>
+							</li>
+							<li class="fragment">It makes it much easier to test larger applications with deep dependency graphs</li>
+							<li class="fragment">Can yield much higher code coverage since you tend to mock less to get a working test</li>
+							<li class="fragment">When combined with aspects of AngularJS's test suite can shorten the feedback loop if any module is failing to properly render</li>
+						</ol>
+					</section>
+					<section>
+						How about a quick example?
+					</section>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h2>Vertical Slides</h2>
+						<p>
+							Slides can be nested inside of other slides,
+							try pressing <a href="#" class="navigate-down">down</a>.
+						</p>
+						<a href="#" class="image navigate-down">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section>
+						<h2>Basement Level 1</h2>
+						<p>Press down or up to navigate.</p>
+					</section>
+					<section>
+						<h2>Basement Level 2</h2>
+						<p>Cornify</p>
+						<a class="test" href="http://cornify.com">
+							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
+						</a>
+					</section>
+					<section>
+						<h2>Basement Level 3</h2>
+						<p>That's it, time to go back up.</p>
+						<a href="#/2" class="image">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
+						</a>
+					</section>
+				</section>
+
+				<section>
+					<h2>Slides</h2>
+					<p>
+						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
+					</p>
+				</section>
+
+				<section>
+					<h2>Point of View</h2>
+					<p>
+						Press <strong>ESC</strong> to enter the slide overview.
+					</p>
+					<p>
+						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
+					</p>
+				</section>
+
+				<section>
+					<h2>Works in Mobile Safari</h2>
+					<p>
+						Try it out! You can swipe through the slides and pinch your way to the overview.
+					</p>
+				</section>
+
+				<section>
+					<h2>Marvelous Unordered List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## Markdown support
+
+						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+
+						```
+						<section data-markdown>
+						  ## Markdown support
+
+						  For those of you who like that sort of thing.
+						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+						</section>
+						```
+					</script>
+				</section>
+
+				<section id="transitions">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="?transition=cube#/transitions">Cube</a> -
+						<a href="?transition=page#/transitions">Page</a> -
+						<a href="?transition=concave#/transitions">Concave</a> -
+						<a href="?transition=zoom#/transitions">Zoom</a> -
+						<a href="?transition=linear#/transitions">Linear</a> -
+						<a href="?transition=fade#/transitions">Fade</a> -
+						<a href="?transition=none#/transitions">None</a> -
+						<a href="?#/transitions">Default</a>
+					</p>
+				</section>
+
+				<section id="themes">
+					<h2>Themes</h2>
+					<p>
+						Reveal.js comes with a few themes built in: <br>
+						<a href="?#/themes">Default</a> -
+						<a href="?theme=sky#/themes">Sky</a> -
+						<a href="?theme=beige#/themes">Beige</a> -
+						<a href="?theme=simple#/themes">Simple</a> -
+						<a href="?theme=serif#/themes">Serif</a> -
+						<a href="?theme=night#/themes">Night</a> <br>
+						<a href="?theme=moon.css#/themes">Moon</a> -
+						<a href="?theme=simple.css#/themes">Simple</a> -
+						<a href="?theme=solarized.css#/themes">Solarized</a>
+					</p>
+					<p>
+						<small>
+							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
+						</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
+						will be added as a class to the document element when the slide is open. This lets you
+						apply broader style changes, like switching the background.
+					</p>
+				</section>
+
+				<section data-state="customevent">
+					<h2>Custom Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+Reveal.addEventListener( 'customevent', function() {
+	console.log( '"customevent" has fired' );
+} );
+					</code></pre>
+				</section>
+
+				<section>
+					<section data-background="#007777">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#007777"</code> on a slide to change the full page background to the given color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="image navigate-down">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png">
+						<h2>Image Backgrounds</h2>
+						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" data-background-repeat="repeat" data-background-size="100px">
+						<h2>Repeated Image Backgrounds</h2>
+						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
+					</section>
+				</section>
+
+				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
+					<h2>Background Transitions</h2>
+					<p>
+						Pass reveal.js the <code>backgroundTransition: 'slide'</code> config argument to make backgrounds slide rather than fade.
+					</p>
+				</section>
+
+				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
+					<h2>Background Transition Override</h2>
+					<p>
+						You can override background transitions per slide by using <code>data-background-transition="slide"</code>.
+					</p>
+				</section>
+
+				<section>
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Pretty Code</h2>
+					<pre><code data-trim contenteditable>
+function linkify( selector ) {
+  if( supports3DTransforms ) {
+
+    var nodes = document.querySelectorAll( selector );
+
+    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
+      var node = nodes[i];
+
+      if( !node.className ) {
+        node.className += ' roll';
+      }
+    }
+  }
+}
+					</code></pre>
+					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
+
+				<section>
+					<h2>Intergalactic Interconnections</h2>
+					<p>
+						You can link between slides internally,
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Fragmented Views</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment">... to step through ...</p>
+						<ol>
+							<li class="fragment"><code>any type</code></li>
+							<li class="fragment"><em>of view</em></li>
+							<li class="fragment"><strong>fragments</strong></li>
+						</ol>
+
+						<aside class="notes">
+							This slide has fragments which are also stepped through in the notes window.
+						</aside>
+					</section>
+					<section>
+						<h2>Fragment Styles</h2>
+						<p>There's a few styles of fragments, like:</p>
+						<p class="fragment grow">grow</p>
+						<p class="fragment shrink">shrink</p>
+						<p class="fragment roll-in">roll-in</p>
+						<p class="fragment fade-out">fade-out</p>
+						<p class="fragment highlight-red">highlight-red</p>
+						<p class="fragment highlight-green">highlight-green</p>
+						<p class="fragment highlight-blue">highlight-blue</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Spectacular image!</h2>
+					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
+						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
+					</a>
+				</section>
+
+				<section>
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
+					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
+					<script>
+						document.getElementById('slideshare').attributeName = 'allowfullscreen';
+					</script>
+				</section>
+
+				<section>
+					<h2>Take a Moment</h2>
+					<p>
+						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
+						during a presentation.
+					</p>
+				</section>
+
+				<section>
+					<h2>Stellar Links</h2>
+					<ul>
+						<li><a href="http://slid.es">Try the online editor</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
+						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>THE END</h1>
+					<h3>BY Hakim El Hattab / hakim.se</h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

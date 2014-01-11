@@ -1,0 +1,44 @@
+<div ng-click="clicked = true" ng-class="recipe.type">
+  <div ng-switch="clicked">
+    <div ng-switch-when="true">
+
+      <div>
+        <div class="label">
+          Title:
+        </div>
+        <div class="input">
+          <input ng-class="getInputClass()" ng-model="recipe.title" ng-blur="_update()" autofocus></input>
+        </div>
+      </div>
+      <div>
+        <div class="label">
+          Description:
+        </div>
+        <div class="input">
+          <input ng-class="getInputClass()" ng-model="recipe.description" ng-blur="_update()"></input>
+        </div>
+      </div>
+      <div>
+        <div class="label">
+          Status:
+        </div>
+        <div class="input">
+          <input ng-class="getInputClass()" ng-model="recipe.status" ng-blur="_update()"></input>
+        </div>
+      </div>
+
+      <div ng-if="recipe.type == 'DRINK' " ng-include=" '/html/directives/drink.html' "></div>
+      <div ng-if="recipe.type == 'CONDIMENT' " ng-include=" '/html/directives/condiment.html' "></div>
+
+      <div>
+
+        <input type="submit" ng-class="getInputClass()" class="deleteButton" ng-click="delete()" value="Delete"></input>
+
+      </div>
+
+    </div>
+    <div ng-switch-default>
+      <div class="regularText">{{recipe | alcoholicWarning}}</div>
+    </div>
+  </div>
+</div>

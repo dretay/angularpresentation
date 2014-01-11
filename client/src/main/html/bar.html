@@ -1,0 +1,23 @@
+<h1>Welcome to the Bar!</h1>
+<h2>We can serve you a
+  <span ng:repeat="recipe in filtered = (recipes | onlyDrinks)">
+    <span ng-switch="$last">
+      <span ng-switch-when="true">
+       <span ng-show="filtered.length > 1">or </span>
+       {{recipe.title}}</span>
+      <span ng-switch-default>{{recipe.title}}, </span>
+    </span>
+  </span>
+</h2>
+
+<div class="bar">
+  <div class="addButton" ng-click="addNewRecipe('DRINK')">Add Drink</div>
+  <div class="addButton" ng-click="addNewRecipe('CONDIMENT')">Add Condiment</div>
+  <div id="shelf">
+    <ul>
+      <li ng:repeat="recipe in recipes">
+        <drink recipe="recipe" update="update(recipe)" delete="delete(recipe)"></drink>
+      </li>
+    </ul>
+  </div>
+</div>
