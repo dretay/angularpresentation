@@ -1,7 +1,7 @@
 AngularJS Tutorial / Presentation
 =========
 
-This project is intended to give you an overview of the AngularJS framework. It is composed of three modules:
+This project is intended to give you an overview of the AngularJS framework. It is composed of four modules:
 
   - presentation/
     - [reveal.js] presentation
@@ -14,6 +14,8 @@ This project is intended to give you an overview of the AngularJS framework. It 
     - real-time code coverage reports from [istanbul]
     - assertions courtesy of [chai]
     - test harness built on [mocha]
+  - AngularJS - Superheroic JavaScript MVW Framework.pdf
+    - a PDF generated from the presentation - this may have some rendering issues due to the interative nature of the presentation    
 
 Abstract
 ----
