@@ -40,7 +40,7 @@ grunt serve
 ```sh
 git clone [git-repo-url] angularpresentation
 cd angularpresentation/client
-npm install -g mimosa
+npm install -g mimosa@1.3.9
 mimosa watch -s
 #YOU SHOULD NOW BE ABLE TO ACCESS THE CLIENT AT HTTP://LOCALHOST:3000
 ```
