@@ -5,9 +5,9 @@ exports.config =
     'require'
     'minify'
     'bower'
-    'require-lint'
-    'mimosa-jshint'
-    'mimosa-csslint'
+    #'require-lint'
+    #'mimosa-jshint'
+    #'mimosa-csslint'
     'mimosa-karma-enterprise'
   ]
   server:
