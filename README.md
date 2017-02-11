@@ -67,6 +67,6 @@ Apache 2.0
 [Express]:http://expressjs.com/
 [istanbul]:http://gotwarlost.github.io/istanbul/
 [chai]:http://chaijs.com/
-[mocha]:http://visionmedia.github.io/mocha/
+[mocha]:http://mochajs.org/
 [express]:http://expressjs.com
 
